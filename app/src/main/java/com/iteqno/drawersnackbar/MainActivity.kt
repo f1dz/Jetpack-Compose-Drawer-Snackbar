@@ -48,47 +48,21 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DrawerSnackApp() {
-    val scaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
-    val context = LocalContext.current
+    val appState = rememberNavDrawerState()
 
     Scaffold(
-        scaffoldState = scaffoldState,
+        scaffoldState = appState.scaffoldState,
         topBar = {
             CustomTopBar(
-                onMenuClick = {
-                    scope.launch {
-                        scaffoldState.drawerState.open()
-                    }
-                }
+                onMenuClick = appState::onMenuClick
+
             )
         },
-        drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
+        drawerGesturesEnabled = appState.scaffoldState.drawerState.isOpen,
         drawerContent = {
             DrawerContent(
-                onItemSelected = { title ->
-                    scope.launch {
-                        scaffoldState.drawerState.close()
-                        val result = scaffoldState.snackbarHostState.showSnackbar(
-                            message = context.resources.getString(R.string.coming_soon, title),
-                            actionLabel = context.resources.getString(R.string.subscribe_question)
-                        )
-                        if(result == SnackbarResult.ActionPerformed){
-                            Toast.makeText(
-                                context,
-                                context.resources.getString(R.string.subscribed_info),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                },
-                onBackPress = {
-                    if(scaffoldState.drawerState.isOpen){
-                        scope.launch {
-                            scaffoldState.drawerState.close()
-                        }
-                    }
-                }
+                onItemSelected = appState::onItemSelected,
+                onBackPress = appState::onBackPress
             )
         }
     ) { paddingValues ->
