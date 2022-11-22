@@ -1,8 +1,6 @@
 package com.iteqno.drawersnackbar
 
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
@@ -21,13 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.iteqno.drawersnackbar.ui.theme.DrawerSnackbarTheme
-import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,6 +89,7 @@ fun CustomTopBar(onMenuClick: () -> Unit) {
         title = { Text(stringResource(R.string.app_name)) }
     )
 }
+
 
 @Composable
 fun DrawerContent(
